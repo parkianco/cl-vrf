@@ -8,12 +8,12 @@
 ;;; SHA-256 Implementation
 ;;; ============================================================================
 
-(defconstant +sha256-initial-hash+
+(defparameter *sha256-initial-hash*
   (make-array 8 :element-type '(unsigned-byte 32)
               :initial-contents '(#x6a09e667 #xbb67ae85 #x3c6ef372 #xa54ff53a
                                   #x510e527f #x9b05688c #x1f83d9ab #x5be0cd19)))
 
-(defconstant +sha256-round-constants+
+(defparameter *sha256-round-constants*
   (make-array 64 :element-type '(unsigned-byte 32)
               :initial-contents
               '(#x428a2f98 #x71374491 #xb5c0fbcf #xe9b5dba5
@@ -116,7 +116,7 @@
                          (+ h
                             (sha256-big-sigma1 e)
                             (sha256-ch e f g)
-                            (aref +sha256-round-constants+ i)
+                            (aref *sha256-round-constants* i)
                             (aref w i))))
              (t2 (logand #xFFFFFFFF
                          (+ (sha256-big-sigma0 a)
@@ -144,7 +144,7 @@
   "Compute SHA-256 hash of DATA. Returns 32-byte vector."
   (declare (type (vector (unsigned-byte 8)) data))
   (let* ((padded (sha256-pad-message data))
-         (state (copy-seq +sha256-initial-hash+))
+         (state (copy-seq *sha256-initial-hash*))
          (block (make-array 64 :element-type '(unsigned-byte 8)))
          (num-blocks (/ (length padded) 64)))
     (dotimes (i num-blocks)
