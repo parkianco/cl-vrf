@@ -1,14 +1,11 @@
-# cl-vrf
+# Vrf
 
-Standalone Verifiable Random Functions (VRF) implementation with **zero external dependencies**.
+Utility library providing specialized functionality for Common Lisp applications.
 
 ## Features
 
-- **ECVRF**: Elliptic curve VRF (draft-irtf-cfrg-vrf-15)
-- **Secp256k1**: Bitcoin/Ethereum compatible
-- **Ed25519**: Edwards curve variant
-- **Proof verification**: Verify randomness provenance
-- **Pure Common Lisp**: No CFFI, no external libraries
+- Core functionality implementation
+- Pure Common Lisp (zero external dependencies)
 
 ## Installation
 
@@ -16,42 +13,12 @@ Standalone Verifiable Random Functions (VRF) implementation with **zero external
 (asdf:load-system :cl-vrf)
 ```
 
-## Quick Start
+## Usage
 
 ```lisp
-(use-package :cl-vrf)
-
-;; Generate keypair
-(multiple-value-bind (public-key secret-key)
-    (vrf-keygen)
-  ;; Evaluate VRF
-  (multiple-value-bind (output proof)
-      (vrf-eval secret-key *input*)
-    ;; Verify
-    (vrf-verify public-key *input* output proof)))
+;; Example usage
+(input)
 ```
-
-## API Reference
-
-### Key Generation
-
-- `(vrf-keygen)` - Generate VRF keypair
-- `(vrf-public-key secret-key)` - Derive public key
-
-### Evaluation
-
-- `(vrf-eval secret-key input)` - Evaluate VRF, returns (output, proof)
-- `(vrf-hash-to-curve input)` - Hash input to curve point
-
-### Verification
-
-- `(vrf-verify public-key input output proof)` - Verify VRF proof
-- `(vrf-proof-to-hash proof)` - Convert proof to hash output
-
-### Utilities
-
-- `(vrf-output-to-integer output)` - Convert output to integer
-- `(vrf-output-to-bytes output)` - Convert output to bytes
 
 ## Testing
 
@@ -59,8 +26,14 @@ Standalone Verifiable Random Functions (VRF) implementation with **zero external
 (asdf:test-system :cl-vrf)
 ```
 
+## API
+
+- `input - Primary function for core functionality`
+
 ## License
 
-BSD-3-Clause
+BSD-3-Clause License - See LICENSE file for details.
 
+---
 Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause
